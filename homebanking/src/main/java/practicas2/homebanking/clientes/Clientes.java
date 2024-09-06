@@ -2,6 +2,13 @@ package practicas2.homebanking.clientes;
 
 import java.util.Objects;
 
+// los records son immutables y no pueden ser cambiados una vez que se crean
+// el record es implicitamente final, no puede ser heredado y sus atributos no pueden ser modificados
+// con los records no hace falta crear getters porque ya vienen creados
+// tambien viene con su propio equals(), hashcode() y tostring()
+// (los setters tampoco se deben crear porque los records son immutables no pueden ser seteados)
+// en conclusion sirven para ahorrar codigo boilerplate que siempre se genera cuando se crea una clase
+
 public record Clientes(
         Integer id,
         String nombre,
@@ -9,25 +16,5 @@ public record Clientes(
 
 
 ) {
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Clientes clientes = (Clientes) o;
-        return Objects.equals(id, clientes.id) && Objects.equals(nombre, clientes.nombre) && Objects.equals(apellido, clientes.apellido);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nombre, apellido);
-    }
-
-    @Override
-    public String toString() {
-        return "Clientes{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                '}';
-    }
 }
