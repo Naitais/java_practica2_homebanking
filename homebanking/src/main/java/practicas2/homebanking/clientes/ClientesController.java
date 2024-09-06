@@ -35,6 +35,8 @@ public class ClientesController {
 
         return clienteFiltrado;
     }
+
+
     //uso RequestBody porque los datos vienen a partir de un input
     @ResponseStatus(HttpStatus.CREATED) // para tener una respuesta despues de haber creado el post
     @PostMapping("") //vacio porque asi comparte la misma ruta que los demas
@@ -43,11 +45,13 @@ public class ClientesController {
         clientesRepository.crearCliente(cliente);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
     void actualizarCliente(@RequestBody Clientes cliente, @PathVariable Integer id){
         clientesRepository.actualizarCliente(cliente, id);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     void eliminarCliente(@PathVariable Integer id){
 
