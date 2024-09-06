@@ -1,6 +1,8 @@
 package practicas2.homebanking.clientes;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,5 +53,30 @@ public class ClientesRepository {
         clientes.add(new Clientes(1, "Juan", "Fernandez"));
 
         clientes.add(new Clientes(2, "Julian", "Messi"));
+    }
+
+    void actualizarCliente(@RequestBody Clientes cliente, @PathVariable Integer id){
+
+        // creo variable optional por si viene null y lo filtro con mi metodo filtrar por id para
+        // encontrar el cliente
+        Optional<Clientes> clienteEncontrado = filtrarPorId(id);
+
+
+        if(clienteEncontrado.isPresent()){
+            // si el cliente esta en el optional uso get para obtener su valor,
+            // uso set para reemplazar el cliente encontrado (primero busco su index con indexOf)
+            // y reemplazo el cliente en el index especificado con el cliente que viene por parametro
+
+            clientes.set(clientes.indexOf(clienteEncontrado.get()), cliente);
+        }
+    }
+
+    void eliminarCliente(@PathVariable Integer id){
+        Optional<Clientes> clienteEncontrado = filtrarPorId(id);
+        if(clienteEncontrado.isPresent()){
+            clientes.remove(clientes.indexOf(clienteEncontrado.get()));
+        }
+
+
     }
 }
