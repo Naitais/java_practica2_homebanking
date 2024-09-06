@@ -3,7 +3,6 @@ package practicas2.homebanking.clientes;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +28,7 @@ public class ClientesController {
         Optional<Clientes> clienteFiltrado = clientesRepository.filtrarPorId(id);
         if (clienteFiltrado.isEmpty()){
 
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente con id "+id+" no encontrado.");
+            throw new ClienteNotFoundException();
 
         }
 
