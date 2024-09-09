@@ -19,13 +19,13 @@ public class ClientesController {
     }
 
     @GetMapping("")
-    List<Clientes> listadoClientes(){
+    List<ClientesClass> listadoClientes(){
         return clientesRepository.getClientes();
     }
 
     @GetMapping("/{id}")
-    Optional<Clientes> buscarClientePorId(@PathVariable Integer id){
-        Optional<Clientes> clienteFiltrado = clientesRepository.filtrarPorId(id);
+    Optional<ClientesClass> buscarClientePorId(@PathVariable Integer id){
+        Optional<ClientesClass> clienteFiltrado = clientesRepository.filtrarPorId(id);
         if (clienteFiltrado.isEmpty()){
 
             throw new ClienteNotFoundException();
@@ -39,14 +39,14 @@ public class ClientesController {
     //uso RequestBody porque los datos vienen a partir de un input
     @ResponseStatus(HttpStatus.CREATED) // para tener una respuesta despues de haber creado el post
     @PostMapping("") //vacio porque asi comparte la misma ruta que los demas
-    void crearCliente(@RequestBody Clientes cliente){
+    void crearCliente(@RequestBody ClientesClass cliente){
 
         clientesRepository.crearCliente(cliente);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    void actualizarCliente(@RequestBody Clientes cliente, @PathVariable Integer id){
+    void actualizarCliente(@RequestBody ClientesClass cliente, @PathVariable Integer id){
         clientesRepository.actualizarCliente(cliente, id);
     }
 

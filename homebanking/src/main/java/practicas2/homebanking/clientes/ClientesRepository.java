@@ -18,23 +18,23 @@ import java.util.Optional;
 // este es un repositorio sino nunca va a estar
 // enterado de que existe la clase ClientesRepository para usar el metodo init para el post
 public class ClientesRepository {
-    private List<Clientes> clientes = new ArrayList<>();
+    private List<ClientesClass> clientes = new ArrayList<>();
 
-    List<Clientes> getClientes(){
+    List<ClientesClass> getClientes(){
         return clientes;
     }
 
-    void crearCliente(Clientes clienteNuevo){
+    void crearCliente(ClientesClass clienteNuevo){
 
         clientes.add(clienteNuevo);
     }
 
-    Optional<Clientes> filtrarPorId(Integer parametroId){
+    Optional<ClientesClass> filtrarPorId(Integer parametroId){
 
         // un Optional es un contenedor de objeto que puede o no contener un valor no null
         // isPresent() sirve para evaluar y arroja true o fale si es el valor es o no null,
         // si es false es porque esta vacio
-        Optional<Clientes> clienteFiltrado = Optional.ofNullable(clientes.get(parametroId));
+        Optional<ClientesClass> clienteFiltrado = Optional.ofNullable(clientes.get(parametroId));
 
 
         return clienteFiltrado;
@@ -51,16 +51,16 @@ public class ClientesRepository {
     // en este caso, la clase ClientesController no necesita saber COMO crear un ClientesRepository, solo lo recibe (dependency injection)
     private void init(){
         // instancio y agrego al mismo tiempo a mi lista de clientes
-        clientes.add(new Clientes(1, "Juan", "Fernandez"));
+        clientes.add(new ClientesClass(1, "Juan", "Fernandez"));
 
-        clientes.add(new Clientes(2, "Julian", "Messi"));
+        clientes.add(new ClientesClass(2, "Julian", "Messi"));
     }
 
-    void actualizarCliente(@RequestBody Clientes cliente, @PathVariable Integer id){
+    void actualizarCliente(@RequestBody ClientesClass cliente, @PathVariable Integer id){
 
         // creo variable optional por si viene null y lo filtro con mi metodo filtrar por id para
         // encontrar el cliente
-        Optional<Clientes> clienteEncontrado = filtrarPorId(id);
+        Optional<ClientesClass> clienteEncontrado = filtrarPorId(id);
 
 
         if(clienteEncontrado.isPresent()){
@@ -73,7 +73,7 @@ public class ClientesRepository {
     }
 
     void eliminarCliente(@PathVariable Integer id){
-        Optional<Clientes> clienteEncontrado = filtrarPorId(id);
+        Optional<ClientesClass> clienteEncontrado = filtrarPorId(id);
         if(clienteEncontrado.isPresent()){
             clientes.remove(clientes.indexOf(clienteEncontrado.get()));
         }
