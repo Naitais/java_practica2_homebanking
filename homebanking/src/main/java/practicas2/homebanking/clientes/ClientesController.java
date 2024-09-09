@@ -47,6 +47,7 @@ public class ClientesController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
     void actualizarCliente(@RequestBody Clientes cliente, @PathVariable Integer id){
+        cliente.setId(id);
         clientesRepository.save(cliente);
     }
 
