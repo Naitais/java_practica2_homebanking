@@ -3,6 +3,8 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,30 +19,8 @@ import java.util.Optional;
 
 // este es un repositorio sino nunca va a estar
 // enterado de que existe la clase ClientesRepository para usar el metodo init para el post
-public class ClientesRepository {
-    private List<ClientesClass> clientes = new ArrayList<>();
+public interface ClientesRepository extends JpaRepository<Clientes, Integer>{
 
-    List<ClientesClass> getClientes(){
-        return clientes;
-    }
-
-    void crearCliente(ClientesClass clienteNuevo){
-
-        clientes.add(clienteNuevo);
-    }
-
-    Optional<ClientesClass> filtrarPorId(Integer parametroId){
-
-        // un Optional es un contenedor de objeto que puede o no contener un valor no null
-        // isPresent() sirve para evaluar y arroja true o fale si es el valor es o no null,
-        // si es false es porque esta vacio
-        Optional<ClientesClass> clienteFiltrado = Optional.ofNullable(clientes.get(parametroId));
-
-
-        return clienteFiltrado;
-    }
-
-    @PostConstruct
     // utilizado en un metodo despues de haberse realizado 'dependency injection'
     // dependency injection: en lugar de que una clase tenga sus propias
     // dependencias al ser instanciada (con new), las dependencias se pasan como parametro con el
@@ -49,35 +29,5 @@ public class ClientesRepository {
     // la dependency injection se utiliza para decoupling o sea, desarmar en partes mas pequeñas el comportamiento
     // de nuestra aplicacion para que sea más fácil entenderla y mantenerla
     // en este caso, la clase ClientesController no necesita saber COMO crear un ClientesRepository, solo lo recibe (dependency injection)
-    private void init(){
-        // instancio y agrego al mismo tiempo a mi lista de clientes
-        clientes.add(new ClientesClass(1, "Juan", "Fernandez"));
 
-        clientes.add(new ClientesClass(2, "Julian", "Messi"));
-    }
-
-    void actualizarCliente(@RequestBody ClientesClass cliente, @PathVariable Integer id){
-
-        // creo variable optional por si viene null y lo filtro con mi metodo filtrar por id para
-        // encontrar el cliente
-        Optional<ClientesClass> clienteEncontrado = filtrarPorId(id);
-
-
-        if(clienteEncontrado.isPresent()){
-            // si el cliente esta en el optional uso get para obtener su valor,
-            // uso set para reemplazar el cliente encontrado (primero busco su index con indexOf)
-            // y reemplazo el cliente en el index especificado con el cliente que viene por parametro
-
-            clientes.set(clientes.indexOf(clienteEncontrado.get()), cliente);
-        }
-    }
-
-    void eliminarCliente(@PathVariable Integer id){
-        Optional<ClientesClass> clienteEncontrado = filtrarPorId(id);
-        if(clienteEncontrado.isPresent()){
-            clientes.remove(clientes.indexOf(clienteEncontrado.get()));
-        }
-
-
-    }
 }

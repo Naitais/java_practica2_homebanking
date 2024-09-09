@@ -1,15 +1,29 @@
 package practicas2.homebanking.clientes;
 
-public class ClientesClass {
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import org.hibernate.annotations.GenericGenerator;
+import jakarta.persistence.Id;
+
+@Entity
+public class Clientes {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private int id;
     private String nombre;
     private String apellido;
 
-    public ClientesClass(int id, String nombre, String apellido) {
+    public Clientes(int id, String nombre, String apellido) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
     }
+
+
 
     public int getId() {
         return id;
