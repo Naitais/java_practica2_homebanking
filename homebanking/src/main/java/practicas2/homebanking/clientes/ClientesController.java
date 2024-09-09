@@ -1,6 +1,8 @@
 package practicas2.homebanking.clientes;
 
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,6 +60,15 @@ public class ClientesController {
         clientesRepository.deleteById(id);
     }
 
+    @Bean
+    public CommandLineRunner initData(ClientesRepository clienteRepository) {
+        return (args) -> {
+            if(clienteRepository.findAll().isEmpty()){
+                Clientes cliente = new Clientes("Miguel", "Rejas", "rejas@gmail.com");
+                clienteRepository.save(cliente);
+            }
+        };
+    }
 }
 
 

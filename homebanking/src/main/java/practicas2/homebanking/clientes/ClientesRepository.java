@@ -30,4 +30,6 @@ public interface ClientesRepository extends JpaRepository<Clientes, Integer>{
     // de nuestra aplicacion para que sea más fácil entenderla y mantenerla
     // en este caso, la clase ClientesController no necesita saber COMO crear un ClientesRepository, solo lo recibe (dependency injection)
 
+
+
 }

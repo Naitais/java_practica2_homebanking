@@ -16,11 +16,12 @@ public class Clientes {
     private int id;
     private String nombre;
     private String apellido;
+    private String email;
 
-    public Clientes(int id, String nombre, String apellido) {
-        this.id = id;
+    public Clientes(String nombre, String apellido, String email) {
         this.nombre = nombre;
         this.apellido = apellido;
+        this.email = email;
     }
 
     public Clientes(){}
@@ -47,5 +48,13 @@ public class Clientes {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
