@@ -42,7 +42,7 @@ public class Clientes {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cuentas> cuentas = new ArrayList<Cuentas>();
 
-    public Clientes(String nombre, String apellido, String email, ArrayList<Cuentas> cuentas) {
+    public Clientes(String nombre, String apellido, String email) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
@@ -88,5 +88,10 @@ public class Clientes {
 
     public void setCuentas(List<Cuentas> cuentas) {
         this.cuentas = cuentas;
+    }
+
+    public void agregarCuenta(Cuentas cuenta){
+        cuenta.setCliente(this);
+        cuentas.add(cuenta);
     }
 }

@@ -22,10 +22,9 @@ public class Cuentas {
     private Clientes cliente;
 
 
-    public Cuentas(int id, String numero, LocalDate fechaCreacion, double saldo) {
-        this.id = id;
+    public Cuentas(String numero, double saldo) {
         this.numero = numero;
-        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacion = LocalDate.now();
         this.saldo = saldo;
     }
 
@@ -61,6 +60,14 @@ public class Cuentas {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    public Clientes getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Clientes cliente) {
+        this.cliente = cliente;
     }
 
 
