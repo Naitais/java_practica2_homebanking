@@ -1,5 +1,6 @@
 package practicas2.homebanking.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -18,6 +19,7 @@ public class Cuentas {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonBackReference // indico cual es el "hijo" de la relacion para evitar recursion
     private Clientes cliente;
 
 

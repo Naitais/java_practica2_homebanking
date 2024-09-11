@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Clientes {
@@ -39,6 +40,7 @@ public class Clientes {
     // dependiendo del caso usar LAZY ayuda a la performance porque no carga de forma innecesaria
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference // indico cual es el "padre" de la relacion para evitar recursion
     private List<Cuentas> cuentas = new ArrayList<Cuentas>();
 
     public Clientes(String nombre, String apellido, String email) {
