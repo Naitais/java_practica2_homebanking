@@ -23,13 +23,15 @@ public class Cuentas {
     private Clientes cliente;
 
 
-    public Cuentas(String numero, double saldo) {
+    public Cuentas(String numero,LocalDate fechaCreacion, double saldo) {
         this.numero = numero;
         this.fechaCreacion = LocalDate.now();
         this.saldo = saldo;
     }
 
-    public Cuentas(){}
+    public Cuentas(){
+        this.fechaCreacion = LocalDate.now(); //para cuando Spring crea el objeto
+    }
 
     public int getId() {
         return id;

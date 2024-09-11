@@ -1,5 +1,6 @@
 package practicas2.homebanking.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import practicas2.homebanking.exceptions.ClienteNotFoundException;
 import practicas2.homebanking.exceptions.CuentaNotFoundException;
@@ -16,11 +17,11 @@ import java.util.Optional;
 public class CuentasController {
 
     private final CuentasRepository cuentaRepository;
-    private final ClientesRepository clientesRepository;
+    private final ClientesRepository clienteRepository;
 
     public CuentasController(CuentasRepository cuentaRepository, ClientesRepository clientesRepository) {
         this.cuentaRepository = cuentaRepository;
-        this.clientesRepository = clientesRepository;
+        this.clienteRepository = clientesRepository;
     }
 
 
@@ -45,7 +46,7 @@ public class CuentasController {
     void crearCuenta(@PathVariable Integer id,@RequestBody Cuentas cuenta){
 
         //busco por id cliente al cual le agrego la cuenta
-        Optional<Clientes> clienteFiltrado = clientesRepository.findById(id);
+        Optional<Clientes> clienteFiltrado = clienteRepository.findById(id);
         if (clienteFiltrado.isEmpty()){
 
             throw new ClienteNotFoundException();
@@ -60,4 +61,17 @@ public class CuentasController {
 
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    void actualizarCuenta(@RequestBody Cuentas cuenta, @PathVariable Integer id){
+        cuenta.setId(id);
+        cuentaRepository.save(cuenta);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    void eliminarCuenta(@PathVariable Integer id){
+
+        cuentaRepository.deleteById(id);
+    }
 }
