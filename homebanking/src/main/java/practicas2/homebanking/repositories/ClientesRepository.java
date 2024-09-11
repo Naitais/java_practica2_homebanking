@@ -1,14 +1,7 @@
-package practicas2.homebanking.clientes;
-import jakarta.annotation.PostConstruct;
+package practicas2.homebanking.repositories;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import practicas2.homebanking.models.Clientes;
 
 @Repository
 // con esta anotacion le digo a spring que lo trate como un bean

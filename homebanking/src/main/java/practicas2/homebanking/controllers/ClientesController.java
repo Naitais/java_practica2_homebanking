@@ -1,10 +1,12 @@
-package practicas2.homebanking.clientes;
-
+package practicas2.homebanking.controllers;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import practicas2.homebanking.exceptions.ClienteNotFoundException;
+import practicas2.homebanking.repositories.ClientesRepository;
+import practicas2.homebanking.models.Clientes;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,16 @@ public class ClientesController {
         this.clientesRepository = clientesRepository;
     }
 
+    @Bean
+    public CommandLineRunner initData(ClientesRepository clienteRepository) {
+        return (args) -> {
+            if(clienteRepository.findAll().isEmpty()){
+                Clientes cliente = new Clientes("Miguel", "Rejas", "rejas@gmail.com");
+                clienteRepository.save(cliente);
+            }
+        };
+    }
+
     @GetMapping("")
     List<Clientes> listadoClientes(){
         return clientesRepository.findAll();
@@ -29,11 +41,8 @@ public class ClientesController {
     Optional<Clientes> buscarClientePorId(@PathVariable Integer id){
         Optional<Clientes> clienteFiltrado = clientesRepository.findById(id);
         if (clienteFiltrado.isEmpty()){
-
             throw new ClienteNotFoundException();
-
         }
-
         return clienteFiltrado;
     }
 
@@ -60,15 +69,7 @@ public class ClientesController {
         clientesRepository.deleteById(id);
     }
 
-    @Bean
-    public CommandLineRunner initData(ClientesRepository clienteRepository) {
-        return (args) -> {
-            if(clienteRepository.findAll().isEmpty()){
-                Clientes cliente = new Clientes("Miguel", "Rejas", "rejas@gmail.com");
-                clienteRepository.save(cliente);
-            }
-        };
-    }
+
 }
 
 

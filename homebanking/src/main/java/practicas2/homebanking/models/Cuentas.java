@@ -1,8 +1,7 @@
-package practicas2.homebanking.cuentas;
+package practicas2.homebanking.models;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-import practicas2.homebanking.clientes.Clientes;
 
 import java.time.LocalDate;
 

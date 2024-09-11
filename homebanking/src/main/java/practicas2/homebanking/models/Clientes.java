@@ -1,4 +1,4 @@
-package practicas2.homebanking.clientes;
+package practicas2.homebanking.models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.*;
-import practicas2.homebanking.cuentas.Cuentas;
 
 @Entity
 public class Clientes {
